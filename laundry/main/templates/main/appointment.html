@@ -1,0 +1,73 @@
+{% extends "main/base.html" %}
+
+{% block title %}{% endblock %}
+{% load static %}
+
+{% block content %}
+<style>
+    body {
+        /* font-family: Arial, sans-serif; */
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+    }
+
+
+    .section {
+        max-width: 800px;
+        margin: 2rem auto;
+        background-color: #fff;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    section{
+        margin: 2rem 15rem;
+    } 
+    section h2{
+        font-weight: 600;
+        font-size: 40px;
+        margin-bottom: 10px;
+        border-bottom: 3px solid #007bff; /* Add a blue underline */
+        padding-bottom: 5px; /* Optional: Add padding to the bottom */
+    }
+
+    .order-status {
+        margin-top: 1rem;
+    }
+
+    .status {
+        font-weight: bold;
+        color: #007bff;
+    }
+
+    .date {
+        color: #999;
+    }
+    @media only screen and (max-width:1024px) {
+        
+      }
+      @media only screen and (max-width:480px) {
+        section {
+            margin: 2rem 2rem;
+        }
+      }
+</style>
+
+<section>
+    <h2>Booking Details</h2>
+    <div class="section">
+        <div class="order-status">
+            <p><span class="status">Booking ID:</span> 1111</p>
+            <p><span class="date">Date:</span> January 15, 2023</p>
+            <p><span class="date">Time:</span> 12.30 PM</p>
+            <p><span class="status">Status:</span> Pending</p>
+        </div>
+    </div>
+    
+
+    <!-- Add more order status information as needed -->
+
+</section>
+
+{% endblock %}

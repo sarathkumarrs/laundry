@@ -1,0 +1,95 @@
+{% extends "main/base.html" %}
+
+{% block title %}{% endblock %}
+{% load static %}
+
+{% block content %}
+<style>
+    body{
+        margin: 0;
+        padding: 0;
+    }
+    .form {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    input {
+      width: 100%;
+      padding: 10px;
+      margin:1.5rem 0;
+      border: 1px solid rgb(213, 211, 211);
+      
+    }
+    button {
+      background-color: #6785FF;
+      color: white;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+      margin: 1.5rem 0;
+    }
+    section{
+        margin: 4rem 0;
+    }
+    section h2{
+        font-weight: 600;
+        font-size: 40px;
+        margin-bottom: 10px;
+        border-bottom: 3px solid #007bff; /* Add a blue underline */
+        padding-bottom: 5px; /* Optional: Add padding to the bottom */
+    }
+    .form{
+        /* border: 1px solid rgb(190, 188, 188); */
+        box-shadow: 0 4px 8px #c4cef9; /* Add box shadow */
+        border-radius: 1rem;
+        padding:2rem;
+    }
+    @media only screen and (max-width:1024px) {
+        .form{
+            {% comment %} width:; {% endcomment %}
+        } 
+      }
+      @media only screen and (max-width:480px) {
+        .form{
+            width:33rem;
+        }
+      }
+    
+</style>
+<section>
+    <form id="loginForm" class="form" method="post">
+        {% csrf_token %}
+        <h2>Login</h2>
+        <!-- <label for="username">Username:</label> -->
+        {% comment %} <input type="text" id="username" name="username" placeholder="Username" required> {% endcomment %}
+        {{ login_form.username }}
+         
+        {% if login_form.errors.username %}
+            <p class="error-message">{{ login_form.errors.username }}</p>
+        {% endif %}
+
+        <!-- <label for="password">Password:</label> -->
+        {% comment %} <input type="password" id="password" name="password" placeholder="Password" required> {% endcomment %}
+        {{ login_form.password }}
+
+        {% if login_form.errors.password %}
+            <p class="error-message">{{ login_form.errors.password }}</p>
+        {% endif %}
+
+        {% if login_form.non_field_errors %}
+            <div class="non-field-errors">
+                <ul class="error-list">
+                    {% for error in login_form.non_field_errors %}
+                    <li>{{ error }}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+
+        <button type="submit">Log In</button>
+        <p>Don't have an account?&nbsp;&nbsp;<span><a href="{% url 'main:signup' %}" style="color:#007bff;">Create one</a></span></p>
+    </form>
+</section>
+{% endblock %}
