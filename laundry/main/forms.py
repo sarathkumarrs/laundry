@@ -38,3 +38,11 @@ class LoginForm(forms.Form):
     password = forms.CharField(
         widget=forms.PasswordInput(attrs={"placeholder": "Password"}),
     )
+
+
+class BookingForm(forms.ModelForm):
+    class Meta:
+        model = Booking
+        fields = ['name', 'phone', 'address', 'date', 'time', 'message']
+        
+

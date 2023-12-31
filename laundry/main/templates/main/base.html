@@ -200,7 +200,9 @@
         <!-- Header End -->
     </header>
     <!-- booking  -->
-    <form id="bookingForm">
+    <form method="post" action="{% url 'main:booking_form' %}" id="bookingForm">
+    
+        {% csrf_token %}
         <div class="close-icon" style="text-align: right;" onclick="closeForm()">
             <i class="fas fa-times"></i>
         </div>

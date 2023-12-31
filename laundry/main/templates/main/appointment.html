@@ -56,14 +56,39 @@
 
 <section>
     <h2>Booking Details</h2>
+    {% if bookings %}
+    {% for booking in bokkings %}
     <div class="section">
         <div class="order-status">
-            <p><span class="status">Booking ID:</span> 1111</p>
-            <p><span class="date">Date:</span> January 15, 2023</p>
-            <p><span class="date">Time:</span> 12.30 PM</p>
-            <p><span class="status">Status:</span> Pending</p>
+            <p><span class="status">Booking ID:</span>  {{ booking.id }}</p>
+            <p><span class="date">Date:</span> {{ booking.date }}</p>
+            <p><span class="date">Time:</span> {{ booking.time }}</p>
+            <p><span class="status">Status:</span>{{ booking.status }}</p>
         </div>
     </div>
+    {% endfor %}
+    {% else %}
+        <p>No bookings found</p>
+    {% endif %}
+    {% comment %} {% for booking in bookings %}
+    <div class="section">
+        <div class="order-status">
+            <p><span class="status">Booking ID:</span>  {{ booking.id }}</p>
+            <p><span class="date">Date:</span> {{ booking.date }}</p>
+            <p><span class="date">Time:</span> {{ booking.time }}</p>
+            <p><span class="status">Status:</span>{{ booking.status }}</p>
+        </div>
+    </div> {% endcomment %}
+    {% comment %} <p>
+        Booking ID: {{ booking.id }}<br>
+        Customer: {{ booking.name }}<br>
+        Date: {{ booking.date }}<br>
+        Time: {{ booking.time }}<br>
+        {% comment %} Service Type: {{ booking.service_type }}<br> {% endcomment %}
+        {% comment %} Status: {{ booking.status }}<br>
+    </p> {% endcomment %}
+    {% comment %} {% endfor %} {% endcomment %}
+   
     
 
     <!-- Add more order status information as needed -->

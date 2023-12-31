@@ -57,7 +57,10 @@ def elements(request):
     return render(request,'main/elements.html') 
 
 def appointment(request):
-    return render(request,'main/appointment.html') 
+
+    bookings = Booking.objects.all()
+    print(bookings) 
+    return render(request,'main/appointment.html',{' bookings ': bookings }) 
 
 def blog(request):
     return render(request,'main/blog.html') 
@@ -72,3 +75,16 @@ def services(request):
 def signout(request):
     logout(request)
     return redirect(reverse("main:index"))
+
+
+def booking_form(request):
+    if request.method == 'POST':
+        form = BookingForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Booking submitted successfully!")
+            return redirect('main:appointment')  # Redirect to a success page
+    else:
+        form = BookingForm()
+
+    return render(request, 'main/index.html', {'form': form})
