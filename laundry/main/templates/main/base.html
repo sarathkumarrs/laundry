@@ -126,6 +126,7 @@
               }
             
         }
+        
       </style>
       
 </head>
@@ -156,13 +157,13 @@
                         <div class="main-menu d-none d-lg-block">
                             <nav> 
                                 <ul id="navigation">                                                                                          
-                                    <li class="active"><a href="{% url 'main:index' %}">Home</a></li>
+                                    <li class=""><a href="{% url 'main:index' %}">Home</a></li>
                                     <li><a href="{% url 'main:about' %}">About</a></li>
                                     <li><a href="{% url 'main:services' %}">Services</a></li>
-                                    <li><a href="{% url 'main:blog' %}">Blog</a>
+                                    <li><a href="{% url 'Blog:blog' %}">Blog</a>
                                         <ul class="submenu">
-                                            <li><a href="{% url 'main:blog' %}">Blog</a></li>
-                                            <li><a href="{% url 'main:blog_details' %}">Blog Details</a></li>
+                                            <li><a href="{% url 'Blog:blog' %}">Blog</a></li>
+                                            <li><a href="{% url 'Blog:blog_details' pk=1 %}">Blog Details</a></li>
                                             <li><a href="{% url 'main:elements' %}">Element</a></li>
                                         </ul>
                                     </li>
@@ -210,8 +211,8 @@
 
     {% comment %} <label for="service">Select Service:</label> {% endcomment %}
     <div style="margin-bottom:6.5rem;">
-        <select id="service" name="service"  required>
-            <option value="" selected style="width:5rem;"  disabled>Select a service</option>
+        <select id="service" name="service" style="width:40rem;" required>
+            <option value="" selected   disabled>Select a service</option>
             {% for service in services %}
                 <option value="{{ service.id }}">{{ service.name }}</option>
             {% endfor %}
@@ -220,24 +221,25 @@
   
     
     {% comment %} <label for="phone">Phone Number:</label> {% endcomment %}
-    <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" placeholder="Phone Number" required>
+    <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" placeholder="Phone Number" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Phone Number'" required>
 
     {% comment %} <label for="address">Address:</label> {% endcomment %}
-    <textarea id="address" name="address" rows="5" placeholder="Address" required></textarea>
+    <textarea id="address" name="address" rows="5" placeholder="Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Address'" required></textarea>
 
     <div style="display: flex; gap: 10px;">
         <div style="flex: 1;">
             {% comment %} <label for="date">Preferred Date:</label> {% endcomment %}
-            <input type="date" id="date" name="date" placeholder="Preferred Date" required>
+            <input type="date" id="date" name="date" placeholder="Preferred Date" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Preferred Date'" required>
         </div>
         <div style="flex: 1;">
             {% comment %} <label for="time">Preferred Time:</label> {% endcomment %}
-            <input type="time" id="time" name="time" placeholder="Preferred Time" required>
+            <input type="time" id="time" name="time" placeholder="Preferred Time" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Preferred Time'" required>
         </div>
     </div>
+    
 
     {% comment %} <label for="message">Additional Message:</label> {% endcomment %}
-    <textarea id="message" name="message" rows="4" placeholder="Additional Message"></textarea>
+    <textarea id="message" name="message" rows="4" placeholder="Additional Message" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Additional Message'"></textarea>
 
     <button type="submit">Submit</button>
 </form>

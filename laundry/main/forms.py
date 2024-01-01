@@ -4,16 +4,16 @@ from .models import *
 class UserRegistrationForm(forms.ModelForm):
     name = forms.CharField(
         max_length=50,
-        widget=forms.TextInput(attrs={"placeholder": "Name"}),
+        widget=forms.TextInput(attrs={"placeholder": "Name",'onfocus': 'this.placeholder = ""','onblur': 'this.placeholder = "Name"'}),
     )
     username = forms.EmailField(
-        widget=forms.EmailInput(attrs={"placeholder": "Email"}),
+        widget=forms.EmailInput(attrs={"placeholder": "Email",'onfocus': 'this.placeholder = ""','onblur': 'this.placeholder = "Email"'}),
     )
     password = forms.CharField(
-        widget=forms.PasswordInput(attrs={"placeholder": "Password"}), 
+        widget=forms.PasswordInput(attrs={"placeholder": "Password",'onfocus': 'this.placeholder = ""','onblur': 'this.placeholder = "Password"'}), 
     )
     confirm_password = forms.CharField(
-        widget=forms.PasswordInput(attrs={"placeholder": "Reenter Password"}),
+        widget=forms.PasswordInput(attrs={"placeholder": "Reenter Password",'onfocus': 'this.placeholder = ""','onblur': 'this.placeholder = "Reenter Password"'}),
     )
     class Meta:
         model = User  # Replace with your User model
@@ -33,10 +33,10 @@ class UserRegistrationForm(forms.ModelForm):
 
 class LoginForm(forms.Form):
     username = forms.EmailField(
-        widget=forms.EmailInput(attrs={"placeholder": "Email Address"}),
+        widget=forms.EmailInput(attrs={"placeholder": "Email Address",'onfocus': 'this.placeholder = ""','onblur': 'this.placeholder = "Email Address"'}),
     )
     password = forms.CharField(
-        widget=forms.PasswordInput(attrs={"placeholder": "Password"}),
+        widget=forms.PasswordInput(attrs={"placeholder": "Password",'onfocus': 'this.placeholder = ""','onblur': 'this.placeholder = "Password"'}),
     )
 
 

@@ -13,9 +13,6 @@ urlpatterns = [
     path('elements/',views.elements,name='elements'),
     # path('appointment/<int:pk>/',views.appointment,name='appointment'),  
     path('appointment/', views.appointment, name='appointment'),
-  
-    path('blog/',views.blog,name='blog'),
-    path('blog_details/',views.blog_details,name='blog_details'),
     path('services/',views.services,name='services'),
     path('signout/',views.signout, name='signout'),
     path('booking/', views.booking_form, name='booking_form'),

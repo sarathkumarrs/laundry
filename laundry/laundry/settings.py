@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'main',
+    'Blog',
+    'ckeditor',
+    'ckeditor_uploader',
 ]
 
 MIDDLEWARE = [
@@ -129,6 +132,9 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Define the directory where 'collectstatic' will collect your static files
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+CKEDITOR_UPLOAD_PATH = 'uploads/'
+
 
 
 # Default primary key field type

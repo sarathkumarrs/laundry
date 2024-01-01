@@ -87,18 +87,6 @@ def appointment(request):
         # Handle the case when the user is not authenticated
         return render(request, 'main/appointment.html', {'form': form,'services':services,'booking':booking})  # Create a template for this case
     
-def blog(request):
-    booking =Booking.objects.all()
-    services = LaundryService.objects.all()
-    form = BookingForm()
-    return render(request,'main/blog.html', {'form': form,'services':services,'booking':booking}) 
-
-def blog_details(request):
-    booking =Booking.objects.all()
-    services = LaundryService.objects.all()
-    form = BookingForm()
-    return render(request,'main/blog_details.html', {'form': form,'services':services,'booking':booking})     
-
 
 def services(request):
     booking =Booking.objects.all()
