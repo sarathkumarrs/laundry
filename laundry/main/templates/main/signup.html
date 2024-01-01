@@ -64,19 +64,19 @@
         <h2>Signup</h2>
         <!-- <label for="username">Username:</label> -->
         {% comment %} <input type="text" id="username" name="username" placeholder="Username" required> {% endcomment %}
-        {{ form.name }}
+        {{ form1.name }}
 
         <!-- <label for="email">Email:</label> -->
         {% comment %} <input type="email" id="email" name="email" placeholder="Email" required> {% endcomment %}
-        {{ form.username }}
+        {{ form1.username }}
 
         <!-- <label for="password">Password:</label> -->
         {% comment %} <input type="password" id="password" name="password" placeholder="Password" required> {% endcomment %}
-        {{ form.password }}
+        {{ form1.password }}
 
         <!-- <label for="confirmPassword">Reenter Password:</label> -->
         {% comment %} <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Reenter Password" required> {% endcomment %}
-        {{ form.confirm_password }}
+        {{ form1.confirm_password }}
 
         <button type="submit">Sign Up</button>
         <p>Already a user?&nbsp;&nbsp;<span><a href="{% url 'main:signin' %}" style="color:#007bff;">Login</a></span></p>

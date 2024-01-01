@@ -175,6 +175,7 @@
                                         <ul class="submenu">
                                             {% if user.is_authenticated %}
                                             <li><a href="{% url 'main:appointment' %}">Booking Details</a></li>
+
                                             <li><a href="{% url 'main:signout' %}">Log Out</a></li>
                                             {% else %}
                                             <li><a href="{% url 'main:signin' %}">Sign In</a></li>
@@ -201,38 +202,46 @@
     </header>
     <!-- booking  -->
     <form method="post" action="{% url 'main:booking_form' %}" id="bookingForm">
+    {% csrf_token %}
+    <div class="close-icon" style="text-align: right;" onclick="closeForm()">
+        <i class="fas fa-times"></i>
+    </div>
+    <h2>Booking</h2>
+
+    {% comment %} <label for="service">Select Service:</label> {% endcomment %}
+    <div style="margin-bottom:6.5rem;">
+        <select id="service" name="service"  required>
+            <option value="" selected style="width:5rem;"  disabled>Select a service</option>
+            {% for service in services %}
+                <option value="{{ service.id }}">{{ service.name }}</option>
+            {% endfor %}
+        </select>
+    </div>
+  
     
-        {% csrf_token %}
-        <div class="close-icon" style="text-align: right;" onclick="closeForm()">
-            <i class="fas fa-times"></i>
+    {% comment %} <label for="phone">Phone Number:</label> {% endcomment %}
+    <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" placeholder="Phone Number" required>
+
+    {% comment %} <label for="address">Address:</label> {% endcomment %}
+    <textarea id="address" name="address" rows="5" placeholder="Address" required></textarea>
+
+    <div style="display: flex; gap: 10px;">
+        <div style="flex: 1;">
+            {% comment %} <label for="date">Preferred Date:</label> {% endcomment %}
+            <input type="date" id="date" name="date" placeholder="Preferred Date" required>
         </div>
-        <h2>Booking</h2>
-        
-        <!-- <label for="name">Your Name:</label> -->
-        <input type="text" id="name" name="name" placeholder="Your Name" required>
-    
-        <!-- <label for="phone">Phone Number:</label> -->
-        <input type="tel" id="phone" name="phone" pattern="[0-9]{10}" placeholder="Phone Number" required>
-        
-        <!-- <label for="address">Address:</label> -->
-        <textarea id="address" name="address" rows="5" placeholder="Address" required></textarea>
-    
-        <div style="display: flex; gap: 10px;">
-            <div style="flex: 1;">
-                <!-- <label for="date">Preferred Date:</label> -->
-                <input type="date" id="date" name="date" placeholder="Preferred Date" required>
-            </div>
-            <div style="flex: 1;">
-                <!-- <label for="time">Preferred Time:</label> -->
-                <input type="time" id="time" name="time" placeholder="Preferred Time" required>
-            </div>
+        <div style="flex: 1;">
+            {% comment %} <label for="time">Preferred Time:</label> {% endcomment %}
+            <input type="time" id="time" name="time" placeholder="Preferred Time" required>
         </div>
-    
-        <!-- <label for="message">Additional Message:</label> -->
-        <textarea id="message" name="message" rows="4" placeholder="Additional Message"></textarea>
-    
-        <button type="submit">Submit</button>
-    </form>
+    </div>
+
+    {% comment %} <label for="message">Additional Message:</label> {% endcomment %}
+    <textarea id="message" name="message" rows="4" placeholder="Additional Message"></textarea>
+
+    <button type="submit">Submit</button>
+</form>
+
     
     <script>
         document.addEventListener("DOMContentLoaded", function () {

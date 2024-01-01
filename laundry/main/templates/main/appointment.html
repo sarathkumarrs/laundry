@@ -6,12 +6,10 @@
 {% block content %}
 <style>
     body {
-        /* font-family: Arial, sans-serif; */
         margin: 0;
         padding: 0;
         background-color: #f4f4f4;
     }
-
 
     .section {
         max-width: 800px;
@@ -21,15 +19,17 @@
         border-radius: 8px;
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     }
-    section{
+
+    section {
         margin: 2rem 15rem;
-    } 
-    section h2{
+    }
+
+    section h2 {
         font-weight: 600;
         font-size: 40px;
         margin-bottom: 10px;
-        border-bottom: 3px solid #007bff; /* Add a blue underline */
-        padding-bottom: 5px; /* Optional: Add padding to the bottom */
+        border-bottom: 3px solid #007bff;
+        padding-bottom: 5px;
     }
 
     .order-status {
@@ -38,61 +38,91 @@
 
     .status {
         font-weight: bold;
-        color: #007bff;
+        color:#007bff; /* Default color */
     }
 
-    .date {
-        color: #999;
+    /* Styles for different status values */
+    .status1.received {
+        color:white;
+        padding: .5rem 1rem;
+        border-radius: 2rem;
+        background-color: #007bff; /* Blue color for 'received' status */
     }
-    @media only screen and (max-width:1024px) {
-        
-      }
-      @media only screen and (max-width:480px) {
+
+    .status1.processing {
+        color:white;
+        padding: .5rem 1rem;
+        border-radius: 2rem;
+
+        background-color: #ff9900; /* Orange color for 'processing' status */
+    }
+
+    .status1.ready_for_pickup {
+        color:white;
+        padding: .5rem 1rem;
+        border-radius: 2rem;
+        background-color: #33cc33; /* Green color for 'ready_for_pickup' status */
+    }
+
+    .status1.completed {
+        color:white;
+        padding: .5rem 1rem;
+        border-radius: 2rem;
+        background-color: #9900cc; /* Purple color for 'completed' status */
+    }
+
+    .status1.cancelled {
+        color:white;
+        padding: .5rem 1rem;
+        border-radius: 2rem;
+        background-color: #ff0000; /* Red color for 'cancelled' status */
+    }
+
+    .personal {
+        display: flex;
+        justify-content: left;
+        gap: 3rem;
+    }
+
+    .personal-details {
+        background-color: #fff;
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    @media only screen and (max-width: 1024px) {
+
+    }
+
+    @media only screen and (max-width: 480px) {
         section {
             margin: 2rem 2rem;
         }
-      }
+    }
 </style>
 
 <section>
     <h2>Booking Details</h2>
+
     {% if bookings %}
-    {% for booking in bokkings %}
-    <div class="section">
-        <div class="order-status">
-            <p><span class="status">Booking ID:</span>  {{ booking.id }}</p>
-            <p><span class="date">Date:</span> {{ booking.date }}</p>
-            <p><span class="date">Time:</span> {{ booking.time }}</p>
-            <p><span class="status">Status:</span>{{ booking.status }}</p>
+        {% for booking in bookings %}
+        <div class="section">
+            <div class="order-status">
+                <p><span class="status received">Booking ID:</span>  {{ booking.id }}</p>
+                <p><span class="status received">Service:</span> {{ booking.service }}</p>
+                <p><span class="status received">Date:</span> {{ booking.date }}</p>
+                <p><span class="status received">Time:</span> {{ booking.time }}</p>
+                <p><span class="status received">Phone:</span> {{ booking.phone }}</p>
+                <p><span class="status received">Address:</span> {{ booking.address }}</p>
+                {% comment %} Dynamically change color based on the status value {% endcomment %}
+                <p><span class="status received">Status: </span><span class="status1 {{ booking.status|lower }}">{{ booking.get_status_display }}</span></p>
+            </div>
         </div>
-    </div>
-    {% endfor %}
+        {% endfor %}
     {% else %}
         <p>No bookings found</p>
     {% endif %}
-    {% comment %} {% for booking in bookings %}
-    <div class="section">
-        <div class="order-status">
-            <p><span class="status">Booking ID:</span>  {{ booking.id }}</p>
-            <p><span class="date">Date:</span> {{ booking.date }}</p>
-            <p><span class="date">Time:</span> {{ booking.time }}</p>
-            <p><span class="status">Status:</span>{{ booking.status }}</p>
-        </div>
-    </div> {% endcomment %}
-    {% comment %} <p>
-        Booking ID: {{ booking.id }}<br>
-        Customer: {{ booking.name }}<br>
-        Date: {{ booking.date }}<br>
-        Time: {{ booking.time }}<br>
-        {% comment %} Service Type: {{ booking.service_type }}<br> {% endcomment %}
-        {% comment %} Status: {{ booking.status }}<br>
-    </p> {% endcomment %}
-    {% comment %} {% endfor %} {% endcomment %}
-   
-    
-
-    <!-- Add more order status information as needed -->
-
 </section>
 
 {% endblock %}

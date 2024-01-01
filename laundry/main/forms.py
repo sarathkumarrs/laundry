@@ -41,8 +41,13 @@ class LoginForm(forms.Form):
 
 
 class BookingForm(forms.ModelForm):
+    phone = forms.CharField(max_length=10, required=True)
+    
+    address = forms.CharField(widget=forms.Textarea, required=True)
+    date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}), required=True)
+    time = forms.TimeField(widget=forms.TimeInput(attrs={'type': 'time'}), required=True)
+    message = forms.CharField(widget=forms.Textarea, required=False)
+
     class Meta:
         model = Booking
-        fields = ['name', 'phone', 'address', 'date', 'time', 'message']
-        
-
+        fields = ['service','phone', 'address', 'date', 'time', 'message']

@@ -6,9 +6,15 @@ from django.urls import reverse
 
 # Create your views here.
 def index(request):
-    return render(request,'main/index.html')
+    booking =Booking.objects.all()
+    services = LaundryService.objects.all()
+    form = BookingForm()
+    return render(request,'main/index.html', {'form': form,'services':services,'booking':booking})
 
 def signin(request):
+    booking =Booking.objects.all()
+    services = LaundryService.objects.all()
+    form = BookingForm()
     if request.method == "POST":
         login_form = LoginForm(request.POST)
         if login_form.is_valid():
@@ -28,49 +34,77 @@ def signin(request):
     else:
         login_form = LoginForm()
 
-    return render(request,'main/signin.html',{'login_form':login_form})
+    return render(request,'main/signin.html',{'login_form':login_form,'form': form,'services':services,'booking':booking})
 
 def signup(request):
+    booking =Booking.objects.all()
+    services = LaundryService.objects.all()
+    form = BookingForm()
     if request.method == "POST":
-        form = UserRegistrationForm(request.POST)
-        if form.is_valid():
+        form1 = UserRegistrationForm(request.POST)
+        if form1.is_valid():
             print("Form is valid. Saving...")
-            user = form.save(commit=False)
-            user.set_password(form.cleaned_data["password"])
+            user = form1.save(commit=False)
+            user.set_password(form1.cleaned_data["password"])
             user.save()
             messages.success(request, "You have signed up successfully!")
             return redirect("main:signin")
         else:
-            print("Form is not valid:", form.errors)
-            return render(request, "main/signup.html", {"form": form})
-    form = UserRegistrationForm()
-    return render(request, 'main/signup.html', {"form": form})  
+            print("Form is not valid:", form1.errors)
+            return render(request, "main/signup.html", {"form1": form1})
+    form1 = UserRegistrationForm()
+    return render(request, 'main/signup.html', {"form1": form1,'form': form,'services':services,'booking':booking})  
 
 
 def about(request):
-    return render(request,'main/about.html') 
+    booking =Booking.objects.all()
+    services = LaundryService.objects.all()
+    form = BookingForm()
+    return render(request,'main/about.html', {'form': form,'services':services,'booking':booking}) 
 
 def contact(request):
-    return render(request,'main/contact.html') 
+    booking =Booking.objects.all()
+    services = LaundryService.objects.all()
+    form = BookingForm()
+    return render(request,'main/contact.html', {'form': form,'services':services,'booking':booking}) 
 
 def elements(request):
-    return render(request,'main/elements.html') 
+    booking =Booking.objects.all()
+    services = LaundryService.objects.all()
+    form = BookingForm()
+    return render(request,'main/elements.html', {'form': form,'services':services,'booking':booking}) 
 
 def appointment(request):
+    booking =Booking.objects.all()
+    services = LaundryService.objects.all()
+    form = BookingForm()
+    if request.user.is_authenticated:
+            # Filter bookings based on the currently logged-in user
+            bookings = Booking.objects.filter(user=request.user)
 
-    bookings = Booking.objects.all()
-    print(bookings) 
-    return render(request,'main/appointment.html',{' bookings ': bookings }) 
-
+            return render(request, 'main/appointment.html', {'bookings': bookings,'form': form,'services':services,'booking':booking})
+    else:
+        # Handle the case when the user is not authenticated
+        return render(request, 'main/appointment.html', {'form': form,'services':services,'booking':booking})  # Create a template for this case
+    
 def blog(request):
-    return render(request,'main/blog.html') 
+    booking =Booking.objects.all()
+    services = LaundryService.objects.all()
+    form = BookingForm()
+    return render(request,'main/blog.html', {'form': form,'services':services,'booking':booking}) 
 
 def blog_details(request):
-    return render(request,'main/blog_details.html')     
+    booking =Booking.objects.all()
+    services = LaundryService.objects.all()
+    form = BookingForm()
+    return render(request,'main/blog_details.html', {'form': form,'services':services,'booking':booking})     
 
 
 def services(request):
-    return render(request,'main/services.html')     
+    booking =Booking.objects.all()
+    services = LaundryService.objects.all()
+    form = BookingForm()
+    return render(request,'main/services.html', {'form': form,'services':services,'booking':booking})     
 
 def signout(request):
     logout(request)
@@ -78,13 +112,16 @@ def signout(request):
 
 
 def booking_form(request):
+    services = LaundryService.objects.all()
     if request.method == 'POST':
         form = BookingForm(request.POST)
         if form.is_valid():
-            form.save()
-            messages.success(request, "Booking submitted successfully!")
-            return redirect('main:appointment')  # Redirect to a success page
+            booking = form.save(commit=False)
+            booking.user = request.user  # Assuming the user is logged in
+            booking.status = 'received'  # Set the default status
+            booking.save()
+            return redirect('main:appointment')
     else:
         form = BookingForm()
-
-    return render(request, 'main/index.html', {'form': form})
+    
+    return render(request, 'main/index.html', {'form': form,'services':services})
