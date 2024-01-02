@@ -63,10 +63,19 @@ def about(request):
     return render(request,'main/about.html', {'form': form,'services':services,'booking':booking}) 
 
 def contact(request):
+
     booking =Booking.objects.all()
     services = LaundryService.objects.all()
     form = BookingForm()
-    return render(request,'main/contact.html', {'form': form,'services':services,'booking':booking}) 
+    if request.method == 'POST':
+        form3 = ContactMessageForm(request.POST)
+        if form3.is_valid():
+            form3.save()
+            return redirect('main:contact')  # Change 'success_page' to your success page URL
+    else:
+        form3 = ContactMessageForm()
+
+    return render(request,'main/contact.html', {'form': form,'services':services,'booking':booking,'form3':form3}) 
 
 def elements(request):
     booking =Booking.objects.all()

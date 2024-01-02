@@ -27,26 +27,31 @@
                 <div class="col-lg-8 mb-5 mb-lg-0">
                     <div class="blog_left_sidebar">
                         {% for blog in blogs %}
-                        <article class="blog_item">
-                            <div class="blog_item_img">
-                                <img class="card-img rounded-0" src="{{ blog.image.url }}" alt="">
-                                <a href="#" class="blog_item_date">
-                                    <h3>{{ blog.date.day }}</h3>
-                                    <p>{{ blog.date|date:"M" }}</p>
-                                </a>
-                            </div>
-                            <div class="blog_details">
-                                <a class="d-inline-block" href="{% url 'Blog:blog_details' blog.pk %}">
-                                    <h2 class="blog-head" style="color: #2d2d2d;">{{ blog.title }}</h2>
-                                </a>
-                                <p>{{ blog.content|slice:":255" | safe}}</p>
-                                <ul class="blog-info-link">
-                                    <li><a href="#"><i class="fa fa-user"></i> Travel, Lifestyle</a></li>
-                                    <li><a href="#"><i class="fa fa-comments"></i> 03 Comments</a></li>
-                                </ul>
-                            </div>
-                        </article>
+                            <article class="blog_item">
+                                <div class="blog_item_img">
+                                    <img class="card-img rounded-0" src="{{ blog.image.url }}" alt="">
+                                    <a href="#" class="blog_item_date">
+                                        <h3>{{ blog.date.day }}</h3>
+                                        <p>{{ blog.date|date:"M" }}</p>
+                                    </a>
+                                </div>
+                                <div class="blog_details">
+                                    <a class="d-inline-block" href="{% url 'Blog:blog_details' blog.pk %}">
+                                        <h2 class="blog-head" style="color: #2d2d2d;">{{ blog.title }}</h2>
+                                    </a>
+                                    <p>{{ blog.content|slice:":255" | safe}}</p>
+                                    <ul class="blog-info-link">
+                                        <li><a href="#"><i class="fa fa-user"></i>
+                                            {% for category in blog.categories.all %}
+                                                {{ category.name }}
+                                            {% endfor %}
+                                        </a></li>
+                                        <li><a href="#"><i class="fa fa-comments"></i> {{ blog.comment_set.count }} Comments</a></li>
+                                    </ul>
+                                </div>
+                            </article>
                         {% endfor %}
+
                         {% comment %} <article class="blog_item">
                             <div class="blog_item_img">
                                 <img class="card-img rounded-0" src="{% static 'assets/img/blog/single_blog_2.png' %}" alt="">
@@ -129,24 +134,54 @@
                         </article> {% endcomment %}
                         <nav class="blog-pagination justify-content-center d-flex">
                             <ul class="pagination">
-                                <li class="page-item">
-                                    <a href="#" class="page-link" aria-label="Previous">
-                                        <i class="ti-angle-left"></i>
-                                    </a>
-                                </li>
-                                <li class="page-item">
-                                    <a href="#" class="page-link">1</a>
-                                </li>
-                                <li class="page-item active">
-                                    <a href="#" class="page-link">2</a>
-                                </li>
-                                <li class="page-item">
-                                    <a href="#" class="page-link" aria-label="Next">
-                                        <i class="ti-angle-right"></i>
-                                    </a>
-                                </li>
+                                {% if blogs.has_previous %}
+                                    <li class="page-item">
+                                        <a href="?page=1" class="page-link" aria-label="First">
+                                            <span aria-hidden="true">&laquo;&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a href="?page={{ blogs.previous_page_number }}" class="page-link" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item disabled">
+                                        <span class="page-link" aria-hidden="true">&laquo;&laquo;</span>
+                                    </li>
+                                    <li class="page-item disabled">
+                                        <span class="page-link" aria-hidden="true">&laquo;</span>
+                                    </li>
+                                {% endif %}
+                        
+                                {% for i in blogs.paginator.page_range %}
+                                    <li class="page-item {% if blogs.number == i %}active{% endif %}">
+                                        <a href="?page={{ i }}" class="page-link">{{ i }}</a>
+                                    </li>
+                                {% endfor %}
+                        
+                                {% if blogs.has_next %}
+                                    <li class="page-item">
+                                        <a href="?page={{ blogs.next_page_number }}" class="page-link" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a href="?page={{ blogs.paginator.num_pages }}" class="page-link" aria-label="Last">
+                                            <span aria-hidden="true">&raquo;&raquo;</span>
+                                        </a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item disabled">
+                                        <span class="page-link" aria-hidden="true">&raquo;</span>
+                                    </li>
+                                    <li class="page-item disabled">
+                                        <span class="page-link" aria-hidden="true">&raquo;&raquo;</span>
+                                    </li>
+                                {% endif %}
                             </ul>
                         </nav>
+                        
                     </div>
                 </div>
                 <div class="col-lg-4">
@@ -170,13 +205,15 @@
                         <aside class="single_sidebar_widget post_category_widget">
                             <h4 class="widget_title" style="color: #2d2d2d;">Category</h4>
                             <ul class="list cat-list">
+                                {% for category in categories %}
                                 <li>
                                     <a href="#" class="d-flex">
-                                        <p>Resaurant food</p>
-                                        <p>(37)</p>
+                                        <p>{{ category.name }}</p>
+                                        <p>({{ category.blog_set.count }})</p>
                                     </a>
                                 </li>
-                                <li>
+                                {% endfor %}
+                                {% comment %} <li>
                                     <a href="#" class="d-flex">
                                         <p>Travel news</p>
                                         <p>(10)</p>
@@ -204,22 +241,24 @@
                                     <a href="#" class="d-flex">
                                         <p>Health Care (21)</p>
                                         <p>09</p>
-                                    </a>
+                                    </a> {% endcomment %}
                                 </li>
                             </ul>
                         </aside>
                         <aside class="single_sidebar_widget popular_post_widget">
                             <h3 class="widget_title" style="color: #2d2d2d;">Recent Post</h3>
-                            <div class="media post_item">
-                                <img src="{% static 'assets/img/post/post_1.png' %}" alt="post">
-                                <div class="media-body">
-                                    <a href="{% url 'Blog:blog_details'  %}">
-                                        <h3 style="color: #2d2d2d;">From life was you fish...</h3>
-                                    </a>
-                                    <p>January 12, 2019</p>
+                            {% for recent_blog in recent_blogs %}
+                                <div class="media post_item">
+                                    <img src="{{ recent_blog.image.url }}" style="height:6rem;" alt="post">
+                                    <div class="media-body">
+                                        <a href="{% url 'Blog:blog_details' recent_blog.pk %}">
+                                            <h3 style="color: #2d2d2d;font-size:12px;">{{ recent_blog.title }}</h3>
+                                        </a>
+                                        <p style="font-size:12px;color:gray;">{{ recent_blog.date|date:"F j, Y" }}</p>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="media post_item">
+                            {% endfor %}
+                            {% comment %} <div class="media post_item">
                                 <img src="{% static 'assets/img/post/post_2.png' %}" alt="post">
                                 <div class="media-body">
                                     <a href="{% url 'Blog:blog_details' %}">
@@ -245,7 +284,7 @@
                                     </a>
                                     <p>01 Hours ago</p>
                                 </div>
-                            </div>
+                            </div> {% endcomment %}
                         </aside>
                         <aside class="single_sidebar_widget tag_cloud_widget">
                             <h4 class="widget_title" style="color: #2d2d2d;">Tag Clouds</h4>

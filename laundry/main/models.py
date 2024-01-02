@@ -38,3 +38,12 @@ class Booking(models.Model):
         username = self.user.username if self.user else "Unknown User"
         return f"{username}'s Booking - {self.date} {self.time}"
 
+
+class ContactMessage(models.Model):
+    name = models.CharField(max_length=255)
+    email = models.EmailField()
+    subject = models.CharField(max_length=255)
+    message = models.TextField()
+
+    def __str__(self):
+        return self.subject

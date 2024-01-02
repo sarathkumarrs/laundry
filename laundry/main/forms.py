@@ -51,3 +51,9 @@ class BookingForm(forms.ModelForm):
     class Meta:
         model = Booking
         fields = ['service','phone', 'address', 'date', 'time', 'message']
+
+
+class ContactMessageForm(forms.ModelForm):
+    class Meta:
+        model = ContactMessage
+        fields = ['name', 'email', 'subject', 'message']

@@ -6,3 +6,4 @@ from .models import *
 admin.site.register(User)
 admin.site.register(LaundryService)
 admin.site.register(Booking)
+admin.site.register(ContactMessage)

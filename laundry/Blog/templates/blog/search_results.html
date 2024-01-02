@@ -1,0 +1,21 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block content %}
+<section style="margin: 16rem;">
+    <h2 style="color: #333; font-size: 2rem; margin-bottom: 1rem;">Search Results for "{{ query }}"</h2>
+
+    {% if results %}
+        <ul style="list-style: none; padding: 0;">
+            {% for blog in results %}
+                <li style="margin-bottom: 1rem;">
+                    <a href="{% url 'Blog:blog_details' blog.pk %}" style="color: #000; font-weight: bold; font-size: 1.2rem; transition: color 0.3s;">
+                        {{ blog.title }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p style="color: #555; font-size: 1.2rem;">No results found.</p>
+    {% endif %}
+</section>
+{% endblock %}
