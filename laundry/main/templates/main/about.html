@@ -139,41 +139,22 @@
                         </div>
                         <div class="testmonial-item-active text-center">
                             <!-- testimonial-single-items -->
+                            {% for review in reviews %}
                             <div class="testmonial-item ">
-                                <p class="pera">The automated process starts as soon as your clothes go into the<br> machine. The outcome is gleaming clothes!</p>
+                                <p class="pera">{{ review.comment }}</p>
                                 <div class="rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
+                                    {% for i in review_stars %}
+                                        {% if i <= review.rating %}
+                                            <i class="fas fa-star"></i>
+                                        {% else %}
+                                            <i class="far fa-star"></i>
+                                        {% endif %}
+                                    {% endfor %}
+
                                 </div>
-                                <p> - Rupaya</p>
+                                <p style="font-size:14px;"> - {{ review.name }}</p>
                             </div>
-                            <!-- testimonial-single-items -->
-                            <div class="testmonial-item ">
-                                <p class="pera">The automated process starts as soon as your clothes go into the<br> machine. The outcome is gleaming clothes!</p>
-                                <div class="rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <p> - Rupaya</p>
-                            </div>
-                            <!-- testimonial-single-items -->
-                            <div class="testmonial-item ">
-                                <p class="pera">The automated process starts as soon as your clothes go into the<br> machine. The outcome is gleaming clothes!</p>
-                                <div class="rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                </div>
-                                <p> - Rupaya</p>
-                            </div>
+                           {% endfor %}
                         </div>
                     </div>
                 </div>

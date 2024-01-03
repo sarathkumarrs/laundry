@@ -8,6 +8,8 @@ class User(AbstractUser):
    
     def __str__(self) :
         return self.username
+    
+    
      
 class LaundryService(models.Model):
     name = models.CharField(max_length=255)
@@ -49,3 +51,15 @@ class ContactMessage(models.Model):
 
     def __str__(self):
         return self.subject
+    
+
+
+
+class Review(models.Model):
+    name = models.CharField(max_length=255)
+    rating = models.IntegerField()
+    comment = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.name    

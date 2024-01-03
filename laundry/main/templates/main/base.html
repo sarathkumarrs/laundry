@@ -281,6 +281,7 @@
                     // If the user is not authenticated, redirect to the login page
                     window.location.href = "{% url 'main:signin' %}";
                 {% endif %}
+            });
         });
     
         function closeForm() {
@@ -288,6 +289,50 @@
             // Close the form
             bookingForm.classList.remove('show-booking-form');
         }
+    </script>
+    <script>
+        function validateForm() {
+            var service = document.getElementById("service").value;
+            var phone = document.getElementById("phone").value;
+            var address = document.getElementById("address").value;
+            var date = document.getElementById("date").value;
+            var time = document.getElementById("time").value;
+        
+            // Add more validation checks as needed
+            if (service == "") {
+                alert("Please select a service.");
+                return false;
+            }
+            if (phone == "") {
+                alert("Please enter your phone number.");
+                return false;
+            }
+            if (address == "") {
+                alert("Please enter your address.");
+                return false;
+            }
+            if (date == "") {
+                alert("Please select a preferred date.");
+                return false;
+            }
+            if (time == "") {
+                alert("Please select a preferred time.");
+                return false;
+            }
+        
+            // Check if the selected date is not today or in the past
+            var selectedDate = new Date(date);
+            var currentDate = new Date();
+            currentDate.setHours(0, 0, 0, 0); // Set current date to midnight for accurate comparison
+        
+            if (selectedDate <= currentDate) {
+                alert("Please select a future date.");
+                return false;
+            }
+        
+            return true;
+        }
+        
     </script>
     {% block content %}
     {% endblock %} 

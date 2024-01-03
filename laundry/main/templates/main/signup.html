@@ -60,6 +60,16 @@
 </style>
 
 <section>
+ 
+    {% if messages %}
+      <ul class="messages">
+          {% for message in messages %}
+          <div class="alert alert-success" role="alert">
+              <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+          {% endfor %}
+        </div>
+      </ul>
+    {% endif %}
     <form id="signupForm" class="form" method="POST" action="{% url 'main:signup' %}">
         {% csrf_token %}
         <h2>Signup</h2>
@@ -82,5 +92,6 @@
         <button type="submit">Sign Up</button>
         <p>Already a user?&nbsp;&nbsp;<span><a href="{% url 'main:signin' %}" style="color:#007bff;">Login</a></span></p>
     </form>
+    
 </section>
 {% endblock %}

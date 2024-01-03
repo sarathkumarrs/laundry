@@ -6,10 +6,12 @@ from django.urls import reverse
 
 # Create your views here.
 def index(request):
+    reviews=Review.objects.all()
     booking =Booking.objects.all()
     services = LaundryService.objects.all()
     form = BookingForm()
-    return render(request,'main/index.html', {'form': form,'services':services,'booking':booking})
+    review_stars = range(1, 6)
+    return render(request,'main/index.html', {'form': form,'services':services,'booking':booking,'reviews':reviews,'review_stars': review_stars})
 
 def signin(request):
     booking =Booking.objects.all()
@@ -48,7 +50,7 @@ def signup(request):
             user.set_password(form1.cleaned_data["password"])
             user.save()
             messages.success(request, "You have signed up successfully!")
-            return redirect("main:signin")
+            return redirect("main:signup")
         else:
             print("Form is not valid:", form1.errors)
             return render(request, "main/signup.html", {"form1": form1})
@@ -57,10 +59,12 @@ def signup(request):
 
 
 def about(request):
+    reviews=Review.objects.all()
     booking =Booking.objects.all()
     services = LaundryService.objects.all()
     form = BookingForm()
-    return render(request,'main/about.html', {'form': form,'services':services,'booking':booking}) 
+    review_stars = range(1, 6)
+    return render(request,'main/about.html', {'form': form,'services':services,'booking':booking,'reviews':reviews,'review_stars': review_stars}) 
 
 def contact(request):
 
@@ -124,3 +128,16 @@ def booking_form(request):
         form = BookingForm()
     
     return render(request, 'main/index.html', {'form': form,'services':services})
+
+
+def add_review(request):
+    if request.method == 'POST':
+        form = ReviewForm(request.POST)
+        if form.is_valid():
+            form.save()
+            # Redirect to a success page or the same page after saving the review
+            return redirect('main:index')  # Replace 'your_success_page' with the actual URL name
+    else:
+        form = ReviewForm()
+
+    return render(request, 'main/index.html', {'form': form})    

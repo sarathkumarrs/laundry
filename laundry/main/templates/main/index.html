@@ -5,15 +5,27 @@
 
 {% block content %}
 <style>
-    .btn{
-        width:28rem;
+    .rated {
+        color: gold; /* Change the color to your preferred color */
     }
-    #ex{
-        display:block;
+
+    /* Existing styles */
+    .btn {
+        width: 28rem;
     }
-    #make{
-        display:none;
+
+    #ex {
+        display: block;
     }
+
+    #make {
+        display: none;
+    }
+
+    .fa-star.rated {
+        color: gold; /* Change the color to your preferred color */
+    }
+
     @media only screen and (max-width:1024px) {
         #ex{
             display:none;
@@ -200,41 +212,112 @@
                         </div>
                         <div class="testmonial-item-active text-center">
                             <!-- testimonial-single-items -->
+                            {% for review in reviews %}
                             <div class="testmonial-item ">
-                                <p class="pera">The automated process starts as soon as your clothes go into the<br> machine. The outcome is gleaming clothes!</p>
+                                <p class="pera">{{ review.comment }}</p>
                                 <div class="rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
+                                    {% for i in review_stars %}
+                                        {% if i <= review.rating %}
+                                            <i class="fas fa-star"></i>
+                                        {% else %}
+                                            <i class="far fa-star"></i>
+                                        {% endif %}
+                                    {% endfor %}
+
                                 </div>
-                                <p> - Rupaya</p>
+                                <p style="font-size:14px;"> - {{ review.name }}</p>
                             </div>
-                            <!-- testimonial-single-items -->
-                            <div class="testmonial-item ">
-                                <p class="pera">rgrtgrtgrtgrgrgrgrr trthhrthrt rthrthrth hrthtrh<br> fdgrt vtthtyh ythtyhbtyh</p>
-                                <div class="rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
+                           {% endfor %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-8 col-md-6 col-sm-6" style="margin-left:21rem;border: 1px solid rgb(200, 199, 199);margin-top: 5rem;">
+                    <div class="single-cat text-center">
+                        <div class="cat-cap" style="margin: 4rem 14rem;">
+                            <h3 style="font-size:22px;">Write a Review</h3>
+                            <form method="post" action="{% url 'main:add_review' %}">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    <label for="name">Your Name:</label>
+                                    <input type="text" name="name" class="form-control" style="font-size: 14px;" required>
                                 </div>
-                                <p> - fdbdfb</p>
-                            </div>
-                            <!-- testimonial-single-items -->
-                            <div class="testmonial-item ">
-                                <p class="pera">tvth byhyjyuj buyjybujnuj yujyuj 7uybjbyj<br>rfcrtvgtvtyh ythbyhy t by6hbh</p>
-                                <div class="rating">
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
-                                    <i class="fas fa-star"></i>
+    
+                                <div class="form-group">
+                                    <label for="rating">Rating:</label>
+                                    <div class="rating" id="star-rating" data-rating="0">
+                                        <i class="fas fa-star" title="5 stars"></i>
+                                        <i class="fas fa-star" title="4 stars"></i>
+                                        <i class="fas fa-star" title="3 stars"></i>
+                                        <i class="fas fa-star" title="2 stars"></i>
+                                        <i class="fas fa-star" title="1 star"></i>
+                                    </div>
+                                    <input type="hidden" name="rating" id="rating-input" value="0">
                                 </div>
-                                <p> - vvdfb</p>
-                            </div>
+                                <div class="form-group">
+                                    <label for="comment">Your Review:</label>
+                                    <textarea name="comment" class="form-control" rows="6" style="font-size: 14px;" required></textarea>
+                                </div>
+    
+                                <button type="submit" class="btn btn-primary">Submit Review</button>
+                            </form>
+                            <!-- <script>
+                                // JavaScript to handle star rating interaction
+                                document.addEventListener('DOMContentLoaded', function () {
+                                    const starRating = document.getElementById('star-rating');
+                                    const ratingInput = document.getElementById('rating-input');
+                            
+                                    starRating.addEventListener('click', function (event) {
+                                        const star = event.target;
+                                        if (star.tagName === 'I') {
+                                            const rating = parseInt(star.getAttribute('title').charAt(0));
+                                            ratingInput.value = rating;
+                                            updateStars(rating);
+                                        }
+                                    });
+                            
+                                    function updateStars(rating) {
+                                        console.log('Updating stars:', rating); // Add this line for debugging
+                            
+                                        for (let i = 1; i <= 5; i++) {
+                                            const star = starRating.querySelector(`.fa-star[title="${i} stars"]`);
+                                            if (i <= rating) {
+                                                star.classList.add('rated'); // Add the class for selected stars
+                                            } else {
+                                                star.classList.remove('rated'); // Remove the class for unselected stars
+                                            }
+                                        }
+                                    }
+                                });
+                            </script>
+                             -->
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function () {
+                                    const starContainer = document.getElementById('star-rating');
+                                    const stars = Array.from(starContainer.children);
+                                    const ratingInput = document.getElementById('rating-input');
+                            
+                                    starContainer.addEventListener('click', function (event) {
+                                        const star = event.target;
+                                        if (star.tagName === 'I') {
+                                            const rating = stars.indexOf(star) + 1;
+                                            ratingInput.value = rating;
+                                            updateStars(rating);
+                                        }
+                                    });
+                            
+                                    function updateStars(rating) {
+                                        stars.forEach((star, index) => {
+                                            if (index < rating) {
+                                                star.classList.add('rated');
+                                            } else {
+                                                star.classList.remove('rated');
+                                            }
+                                        });
+                                    }
+                                });
+                            </script>
+                            
+                            
                         </div>
                     </div>
                 </div>
