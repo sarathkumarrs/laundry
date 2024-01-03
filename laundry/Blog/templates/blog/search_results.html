@@ -1,14 +1,34 @@
 {% extends 'main/base.html' %}
 {% load static %}
 {% block content %}
-<section style="margin: 16rem;">
-    <h2 style="color: #333; font-size: 2rem; margin-bottom: 1rem;">Search Results for "{{ query }}"</h2>
+<style>
+    .text{
+        color: #6785FF;text-decoration:underline; font-size: 1.5rem;
+    }
+    .h2{
+        color: #333; font-size: 2rem; margin-bottom: 1rem;
+    }
+    .text:hover{
+        color: #3960fd;
+    }
+    .section{
+        margin:4rem 16rem;
+    }
+    @media only screen and (max-width:480px) {
+        
+        .section{
+          margin: 3rem 2rem;
+        }
+    }
+</style>
+<section class="section">
+    <h2 class="h2">Search Results for "{{ query }}"</h2>
 
     {% if results %}
         <ul style="list-style: none; padding: 0;">
             {% for blog in results %}
-                <li style="margin-bottom: 1rem;">
-                    <a href="{% url 'Blog:blog_details' blog.pk %}" style="color: #000; font-weight: bold; font-size: 1.2rem; transition: color 0.3s;">
+                <li style="margin: 1.5rem 0;">
+                    <a href="{% url 'Blog:blog_details' blog.pk %}" class="text">
                         {{ blog.title }}
                     </a>
                 </li>

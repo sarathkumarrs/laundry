@@ -29,9 +29,11 @@ class Booking(models.Model):
         ('received', 'Received'),
         ('processing', 'Processing'),
         ('ready_for_pickup', 'Ready for Pickup'),
+        ('picked_up', 'Picked Up'),
         ('completed', 'Completed'),
         ('cancelled', 'Cancelled'),
     ], default='received')  
+    created_at = models.DateTimeField(auto_now_add=True,null=True)  # Add this line
 
     # Assuming 'user' is a ForeignKey field in your Booking model
     def __str__(self):

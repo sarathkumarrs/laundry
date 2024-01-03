@@ -72,6 +72,8 @@ def contact(request):
         if form3.is_valid():
             form3.save()
             return redirect('main:contact')  # Change 'success_page' to your success page URL
+        else:
+            print(form3.errors)
     else:
         form3 = ContactMessageForm()
 
@@ -89,7 +91,7 @@ def appointment(request):
     form = BookingForm()
     if request.user.is_authenticated:
             # Filter bookings based on the currently logged-in user
-            bookings = Booking.objects.filter(user=request.user)
+            bookings = Booking.objects.filter(user=request.user).order_by('-created_at')
 
             return render(request, 'main/appointment.html', {'bookings': bookings,'form': form,'services':services,'booking':booking})
     else:

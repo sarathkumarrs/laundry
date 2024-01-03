@@ -1,4 +1,4 @@
-{% extends "main/base.html" %}
+ {% extends "main/base.html" %}
 
 {% block title %}{% endblock %}
 {% load static %}
@@ -50,6 +50,8 @@
                                     </ul>
                                 </div>
                             </article>
+                        {% empty %}
+                            <p>No blogs found.</p>
                         {% endfor %}
                         <nav class="blog-pagination justify-content-center d-flex">
                             <ul class="pagination">
@@ -231,3 +233,4 @@
     <!-- Blog Area End -->
 </main>
 {% endblock %}
+

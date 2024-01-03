@@ -78,9 +78,48 @@ def blog_details(request,pk):
 
 
 def search_view(request):
+    booking =Booking.objects.all()
+    services = LaundryService.objects.all()
+    form = BookingForm()
     query = request.GET.get('q', '')
     print(f"Search Query: {query}")
     results = Blog.objects.filter(title__icontains=query)
     print(f"Search Results: {results}")
-    return render(request, 'blog/search_results.html', {'query': query, 'results': results})                                                      
+    return render(request, 'blog/search_results.html', {'query': query, 'results': results,'form': form,'services':services,'booking':booking})                                                      
 
+def blogs_by_category(request, category_id):
+    # Get the category or return a 404 response if it doesn't exist
+    category = get_object_or_404(Category, id=category_id)
+    categories=Category.objects.all()
+    # Get blogs associated with the selected category
+    blogs = Blog.objects.filter(categories=category)
+    booking = Booking.objects.all()
+    services = LaundryService.objects.all()
+    form = BookingForm()
+    recent_blogs = Blog.objects.order_by('-date')[:4]
+
+    # Number of blogs to display per page
+    blogs_per_page =4
+    paginator = Paginator(blogs, blogs_per_page)
+
+    page = request.GET.get('page')
+    try:
+        blogs = paginator.page(page)
+    except PageNotAnInteger:
+        # If the page parameter is not an integer, show the first page
+        blogs = paginator.page(1)
+    except EmptyPage:
+        # If the page is out of range, deliver the last page of results
+        blogs = paginator.page(paginator.num_pages)
+
+    context = {
+        'form': form,
+        'services': services,
+        'booking': booking,
+        'recent_blogs':recent_blogs,
+        'category': category,
+        'blogs': blogs,
+        'categories':categories,
+    }
+
+    return render(request, 'Blog/blog_by_category.html', context)

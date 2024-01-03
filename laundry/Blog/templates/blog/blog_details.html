@@ -139,7 +139,7 @@
                               <p class="date">{{ comment.created_at|date:"F j, Y \at g:i A" }}</p>
                           </div>
                           <div class="reply-btn">
-                              <a href="#" class="btn-reply text-uppercase">reply</a>
+                              {% comment %} <a href="#" class="btn-reply text-uppercase">reply</a> {% endcomment %}
                           </div>
                       </div>
                   </div>
@@ -324,12 +324,11 @@
 <aside class="single_sidebar_widget newsletter_widget">
   <h4 class="widget_title" style="color: #2d2d2d;">Newsletter</h4>
   <form action="#">
-   <div class="form-group">
-    <input type="email" class="form-control" onfocus="this.placeholder = ''"
-    onblur="this.placeholder = 'Enter email'" placeholder='Enter email' required>
-  </div>
-  <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn" type="submit">Subscribe</button>
-</form>
+    <div class="form-group">
+      <input type="email" class="form-control" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email'" placeholder='Enter email' required>
+    </div>
+    <button class="button rounded-0 primary-bg text-white w-100 btn_1 boxed-btn" type="submit">Subscribe</button>
+  </form>
 </aside>
 </div>
 </div>
