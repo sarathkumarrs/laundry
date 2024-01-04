@@ -88,7 +88,7 @@ WSGI_APPLICATION = 'laundry.wsgi.application'
 # }
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgres://laundry_dsst_user:NjjQd2WEsZ6YWD2cn7wDKlz7iKunDpsq@dpg-cmagurf109ks73fe9jm0-a.frankfurt-postgres.render.com/laundry_dsst',
+        default='postgres://laundry_vn07_user:ctf7Rgg7wJfeV5lGH6oxkRF8O9ASkShC@dpg-cmbc6ged3nmc73eq0h80-a.frankfurt-postgres.render.com/laundry_vn07',
         conn_max_age=600
     )
 }

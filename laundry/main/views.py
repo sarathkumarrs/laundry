@@ -74,11 +74,19 @@ def contact(request):
     if request.method == 'POST':
         form3 = ContactMessageForm(request.POST)
         if form3.is_valid():
-            form3.save()
-            return redirect('main:contact')  # Change 'success_page' to your success page URL
-        else:
-            print(form3.errors)
+            # Create a new ContactMessage object with form data
+            contact_message = ContactMessage(
+                name=form.cleaned_data['name'],
+                email=form.cleaned_data['email'],
+                subject=form.cleaned_data['subject'],
+                message=form.cleaned_data['message']
+            )
+            # Save the object to the database
+            contact_message.save()
+            # Redirect to a success page or do something else
+            return redirect('main:index')  # Change 'success_page' to the actual URL or view name for success
     else:
+        
         form3 = ContactMessageForm()
 
     return render(request,'main/contact.html', {'form': form,'services':services,'booking':booking,'form3':form3}) 

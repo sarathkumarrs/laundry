@@ -68,11 +68,12 @@ class BookingForm(forms.ModelForm):
         return date    
 
 
-class ContactMessageForm(forms.ModelForm):
-    class Meta:
-        model = ContactMessage
-        fields = ['message', 'name', 'email', 'subject']
-
+class ContactMessageForm(forms.Form):
+    name = forms.CharField(max_length=255)
+    email = forms.EmailField()
+    subject = forms.CharField(max_length=255)
+    message = forms.CharField(widget=forms.Textarea)
+    
 
 
 class ReviewForm(forms.ModelForm):
