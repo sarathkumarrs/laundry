@@ -2,13 +2,12 @@ asgiref==3.7.2
 certifi==2023.11.17
 charset-normalizer==3.3.2
 dj-database-url==2.1.0
-Django==5.0
+Django
 django-ckeditor==6.7.0
 django-js-asset==2.2.0
 idna==3.6
 neverbounce-sdk==4.3.0
 Pillow==10.1.0
-psycopg2==2.9.9
 psycopg2-binary==2.9.9
 requests==2.31.0
 sqlparse==0.4.4
