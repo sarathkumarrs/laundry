@@ -190,12 +190,12 @@
     </section>
     <!-- Want To work End -->
     <!-- Testimonials_start -->
-    <section class="testimonials-area testimonials-overly  position-relative">
+    <!-- <section class="testimonials-area testimonials-overly  position-relative">
         <div class="container">
             <div class="border-bottom section-padding40 ">
                 <div class="row">
                     <div class="col-xl-12 ">
-                        <!-- testmonial-image -->
+                       
                         <div class="testmonial-nav text-center">
                             <div class="testmonial-thumb">
                                 <img src="{% static 'assets/img/gallery/testimonila1.png' %}" alt="">
@@ -211,7 +211,7 @@
                             </div>
                         </div>
                         <div class="testmonial-item-active text-center">
-                            <!-- testimonial-single-items -->
+                           
                             {% for review in reviews %}
                             <div class="testmonial-item ">
                                 <p class="pera">{{ review.comment }}</p>
@@ -260,36 +260,7 @@
     
                                 <button type="submit" class="btn btn-primary">Submit Review</button>
                             </form>
-                            <!-- <script>
-                                // JavaScript to handle star rating interaction
-                                document.addEventListener('DOMContentLoaded', function () {
-                                    const starRating = document.getElementById('star-rating');
-                                    const ratingInput = document.getElementById('rating-input');
                             
-                                    starRating.addEventListener('click', function (event) {
-                                        const star = event.target;
-                                        if (star.tagName === 'I') {
-                                            const rating = parseInt(star.getAttribute('title').charAt(0));
-                                            ratingInput.value = rating;
-                                            updateStars(rating);
-                                        }
-                                    });
-                            
-                                    function updateStars(rating) {
-                                        console.log('Updating stars:', rating); // Add this line for debugging
-                            
-                                        for (let i = 1; i <= 5; i++) {
-                                            const star = starRating.querySelector(`.fa-star[title="${i} stars"]`);
-                                            if (i <= rating) {
-                                                star.classList.add('rated'); // Add the class for selected stars
-                                            } else {
-                                                star.classList.remove('rated'); // Remove the class for unselected stars
-                                            }
-                                        }
-                                    }
-                                });
-                            </script>
-                             -->
                             <script>
                                 document.addEventListener('DOMContentLoaded', function () {
                                     const starContainer = document.getElementById('star-rating');
@@ -323,7 +294,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section> -->
     <!-- Testimonials_end -->
     <!--? Company achievement Start -->
     <!-- <section class="services-area section-padding40 fix">
