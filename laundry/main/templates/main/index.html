@@ -372,11 +372,27 @@
     </section>
     <!-- About Area End -->
     <!--?  Map Area start  -->
-    <div class="Map-area">
-        <!-- <img src="{% static 'assets/img/gallery/Map.png' %}" alt="" class="w-100"> -->
-        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3579.5702656094627!2d50.563094575371785!3d26.210654077072665!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e49af388a576cfb%3A0xb53eedc88bff3906!2sAPTECH%20BAHRAIN!5e0!3m2!1sen!2sbh!4v1706965069089!5m2!1sen!2sbh" width="1500" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <div class="map-container">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3579.5702656094627!2d50.563094575371785!3d26.210654077072665!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3e49af388a576cfb%3A0xb53eedc88bff3906!2sAPTECH%20BAHRAIN!5e0!3m2!1sen!2sbh!4v1706965069089!5m2!1sen!2sbh" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
     </div>
     <!-- Map Area End -->
 </main>
+<style>
+    .map-container {
+    position: relative;
+    width: 100%;
+    padding-top: 30.25%; /* 16:9 Aspect Ratio */
+    height: 0;
+}
+
+.map-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+</style>
 
 {% endblock %}
