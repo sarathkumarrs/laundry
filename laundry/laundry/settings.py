@@ -80,18 +80,18 @@ WSGI_APPLICATION = 'laundry.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# }
 DATABASES = {
-    'default': dj_database_url.config(
-        default='postgres://laundry_vn07_user:ctf7Rgg7wJfeV5lGH6oxkRF8O9ASkShC@dpg-cmbc6ged3nmc73eq0h80-a.frankfurt-postgres.render.com/laundry_vn07',
-        conn_max_age=600
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default='postgres://laundry_vn07_user:ctf7Rgg7wJfeV5lGH6oxkRF8O9ASkShC@dpg-cmbc6ged3nmc73eq0h80-a.frankfurt-postgres.render.com/laundry_vn07',
+#         conn_max_age=600
+#     )
+# }
 
 
 # Password validation
