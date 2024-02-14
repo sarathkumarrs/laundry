@@ -47,7 +47,7 @@ class LoginForm(forms.Form):
 
 
 class BookingForm(forms.ModelForm):
-    phone = forms.CharField(max_length=10, required=True)
+    phone = forms.CharField(max_length=15, required=True)
     
     address = forms.CharField(widget=forms.Textarea, required=True)
     date = forms.DateField(widget=forms.DateInput(attrs={'type': 'date'}), required=True)
