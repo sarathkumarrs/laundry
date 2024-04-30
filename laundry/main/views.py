@@ -67,29 +67,25 @@ def about(request):
     return render(request,'main/about.html', {'form': form,'services':services,'booking':booking,'reviews':reviews,'review_stars': review_stars}) 
 
 def contact(request):
-
-    booking =Booking.objects.all()
+    booking = Booking.objects.all()
     services = LaundryService.objects.all()
     form = BookingForm()
+
     if request.method == 'POST':
+        print('Processing POST request for Contact Form')
         form3 = ContactMessageForm(request.POST)
         if form3.is_valid():
-            # Create a new ContactMessage object with form data
-            contact_message = ContactMessage(
-                name=form.cleaned_data['name'],
-                email=form.cleaned_data['email'],
-                subject=form.cleaned_data['subject'],
-                message=form.cleaned_data['message']
-            )
-            # Save the object to the database
-            contact_message.save()
-            # Redirect to a success page or do something else
-            return redirect('main:index')  # Change 'success_page' to the actual URL or view name for success
+            print('Contact Form is valid. Saving...')
+            form3.save()
+            print('Contact Message saved successfully!')
+            return redirect('main:contact')
+        else:
+            print('Contact Form has validation errors:', form3.errors)
     else:
-        
         form3 = ContactMessageForm()
 
-    return render(request,'main/contact.html', {'form': form,'services':services,'booking':booking,'form3':form3}) 
+    return render(request, 'main/contact.html', {'form': form, 'services': services, 'booking': booking, 'form3': form3})
+
 
 def elements(request):
     booking =Booking.objects.all()

@@ -22,7 +22,7 @@ class LaundryService(models.Model):
 class Booking(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE,null=True)
     service = models.ForeignKey(LaundryService, on_delete=models.CASCADE,null=True)
-    phone = models.CharField(max_length=10)
+    phone = models.CharField(max_length=15,null=True)
     address = models.TextField()
     date = models.DateField()
     time = models.TimeField()
